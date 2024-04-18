@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="OTC_Market_DW_LGL" id="LogicalDesign-2362" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="OTC_Market_DW_LGL" >
+		<table name="Entity" />
+		<table name="dim_date" >
+			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="year" prior="quarter" type="INT" jt="4" />
+			<column name="quarter" type="INT" jt="4" />
+			<column name="monthNumber" prior="month" type="INT" jt="4" />
+			<column name="monthName" type="VARCHAR" length="25" jt="12" />
+			<column name="weekOfMonth" type="INT" jt="4" />
+			<column name="weekOfYear" type="INT" jt="4" />
+			<column name="dayName" type="VARCHAR" length="25" jt="12" />
+			<column name="dayNumber" type="INT" jt="4" />
+			<column name="hourNumber" type="INT" jt="4" />
+			<column name="dateIsoformat" type="DATETIME" jt="93" />
+			<column name="closingBestBidDate" type="DATE" jt="91" />
+			<index name="pk_dim_date" unique="PRIMARY_KEY" >
+				<column name="date_id" />
+			</index>
+		</table>
+		<table name="dim_issuer" prior="Entity_0" >
+			<column name="comp_id" prior="issuer_id" type="INT" jt="4" mandatory="y" />
+			<column name="issuer_name" type="VARCHAR" length="50" jt="12" />
+			<column name="symbol" type="VARCHAR" length="10" jt="12" />
+			<index name="pk_dim_issuer" unique="PRIMARY_KEY" >
+				<column name="comp_id" />
+			</index>
+		</table>
+		<table name="dim_location" prior="Entity_0" >
+			<column name="location_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="country" type="VARCHAR" length="25" jt="12" />
+			<column name="state" type="VARCHAR" length="25" jt="12" />
+			<column name="sector" type="VARCHAR" length="25" jt="12" />
+			<index name="pk_dim_location" unique="PRIMARY_KEY" >
+				<column name="location_id" />
+			</index>
+		</table>
+		<table name="dim_sec_type" prior="dim_type" >
+			<column name="sectype_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="sectype_name" type="VARCHAR" length="50" jt="12" />
+			<index name="pk_dim_sec_type" unique="PRIMARY_KEY" >
+				<column name="sectype_id" />
+			</index>
+		</table>
+		<table name="dim_tier" prior="Entity_0" >
+			<column name="tier_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="tier_name" type="VARCHAR" length="50" jt="12" />
+			<column name="venue" type="VARCHAR" length="25" jt="12" />
+			<column name="market" type="VARCHAR" length="25" jt="12" />
+			<index name="pk_dim_tier" unique="PRIMARY_KEY" >
+				<column name="tier_id" />
+			</index>
+		</table>
+		<table name="facts_price" prior="Entity_0" >
+			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="sec_id" type="BIGINT" jt="-5" mandatory="y" />
+			<column name="price" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="change_%" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="vol" type="INT" jt="4" />
+			<column name="closinginside_bidprice" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="closinginside_askprice" prior="closingInside_AskPrice" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="insidebid_askmidprice" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="open_price" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="high_price" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="low_price" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="last_price" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="previous_closeprice" type="DECIMAL" length="2" decimal="2" jt="3" />
+			<column name="shares_outstanding" type="INT" jt="4" />
+			<index name="pk_facts_price" unique="PRIMARY_KEY" >
+				<column name="fact_id" />
+				<column name="sec_id" />
+			</index>
+			<fk name="fk_facts_price_dim_date" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="sec_id" pk="date_id" />
+			</fk>
+			<fk name="fk_facts_price_dim_tier" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_tier" type="NonIdentifying" mandatory="n" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="sec_id" pk="tier_id" />
+			</fk>
+			<fk name="fk_facts_price_dim_location" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_location" type="NonIdentifying" mandatory="n" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="sec_id" pk="location_id" />
+			</fk>
+			<fk name="fk_facts_price_dim_sec_type" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_sec_type" type="NonIdentifying" mandatory="n" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="sec_id" pk="sectype_id" />
+			</fk>
+			<fk name="fk_facts_price_dim_issuer" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_issuer" type="NonIdentifying" mandatory="n" cardinality="ZeroMore" range_from="0" range_to="0" >
+				<fk_column name="sec_id" pk="comp_id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-c00" show_relation="columns" >
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_date" color="C1D8EE" x="51" y="221" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_issuer" color="C1D8EE" x="357" y="51" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_location" color="C1D8EE" x="595" y="527" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_sec_type" color="C1D8EE" x="646" y="255" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_tier" color="C1D8EE" x="136" y="544" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="facts_price" color="C1D8EE" x="340" y="221" />
+	</layout>
+</project>
