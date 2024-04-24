@@ -1,3 +1,5 @@
+#script to generate dw
+
 CREATE SCHEMA IF NOT EXISTS "otcmarket";
 
 CREATE  TABLE "otcmarket".dim_date ( 
