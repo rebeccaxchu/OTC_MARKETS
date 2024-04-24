@@ -62,7 +62,6 @@
 		</table>
 		<table name="facts_price" prior="Entity_0" >
 			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="CSUIP" type="INT" jt="4" />
 			<column name="open_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="high_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="low_price" type="DECIMAL" length="2" decimal="2" jt="3" />
@@ -77,11 +76,6 @@
 			<column name="share_vol" type="INT" jt="4" />
 			<column name="closingbest_biddate" type="DATE" jt="91" />
 			<column name="closingbest_askdate" type="DATE" jt="91" />
-			<column name="date_id" type="DATE" jt="91" />
-			<column name="tier_id" type="INT" jt="4" />
-			<column name="venue_id" type="INT" jt="4" />
-			<column name="status_id" type="INT" jt="4" />
-			<column name="location_id" type="INT" jt="4" />
 			<index name="pk_facts_price" unique="PRIMARY_KEY" >
 				<column name="fact_id" />
 			</index>
@@ -97,21 +91,6 @@
 			<fk name="fk_facts_price_dim_date_0" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="closingbest_askdate" pk="date_id" />
 			</fk>
-			<fk name="fk_facts_price_dim_sec" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_sec" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="CSUIP" pk="CUSIP" />
-			</fk>
-			<fk name="fk_facts_price_dim_tier" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_tier" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="tier_id" pk="tier_id" />
-			</fk>
-			<fk name="fk_facts_price_dim_venue" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_venue" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="venue_id" pk="venue_id" />
-			</fk>
-			<fk name="fk_facts_price_dim_location" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_location" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="location_id" pk="location_id" />
-			</fk>
-			<fk name="fk_facts_price_dim_status" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_status" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="status_id" pk="status_id" />
-			</fk>
 		</table>
 	</schema>
 	<layout name="Default Layout" id="Layout-c00" show_relation="columns" >
@@ -120,7 +99,7 @@
 		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_sec" color="C1D8EE" x="357" y="51" />
 		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_status" color="C1D8EE" x="629" y="306" />
 		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_tier" color="C1D8EE" x="119" y="612" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_venue" color="C1D8EE" x="391" y="799" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_venue" color="C1D8EE" x="374" y="663" />
 		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="facts_price" color="C1D8EE" x="340" y="306" />
 	</layout>
 </project>
