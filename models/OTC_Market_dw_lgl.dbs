@@ -4,14 +4,15 @@
 		<table name="Entity" />
 		<table name="dim_date" >
 			<column name="date_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="year" prior="quarter" type="INT" jt="4" />
-			<column name="quarter" type="INT" jt="4" />
+			<column name="yearNumber" prior="year" type="INT" jt="4" />
+			<column name="quarterNumber" prior="quarter" type="INT" jt="4" />
 			<column name="monthNumber" prior="month" type="INT" jt="4" />
 			<column name="monthName" type="VARCHAR" length="25" jt="12" />
 			<column name="weekOfMonth" type="INT" jt="4" />
 			<column name="weekOfYear" type="INT" jt="4" />
-			<column name="dayName" type="VARCHAR" length="25" jt="12" />
 			<column name="dayNumber" type="INT" jt="4" />
+			<column name="dayofWeek" type="INT" jt="4" />
+			<column name="dayName" type="VARCHAR" length="25" jt="12" />
 			<column name="dateIsoformat" type="DATE" jt="91" />
 			<index name="pk_dim_date" unique="PRIMARY_KEY" >
 				<column name="date_id" />
@@ -25,13 +26,13 @@
 				<column name="location_id" />
 			</index>
 		</table>
-		<table name="dim_sec" prior="Entity_0" >
+		<table name="dim_security" prior="dim_sec" >
 			<column name="CUSIP" type="VARCHAR" length="9" jt="12" mandatory="y" />
 			<column name="compID" prior="CompID" type="INT" jt="4" />
 			<column name="symbol" prior="Symbol" type="VARCHAR" length="10" jt="12" />
-			<column name="sec_type" type="INT" jt="4" />
+			<column name="company_name" type="VARCHAR" length="50" jt="12" />
+			<column name="sec_type" type="VARCHAR" length="25" jt="12" />
 			<column name="sec_name" prior="Sec_name" type="VARCHAR" length="50" jt="12" />
-			<column name="sec_class" prior="class" type="VARCHAR" length="2" jt="12" />
 			<column name="sector" type="VARCHAR" length="25" jt="12" />
 			<column name="caveat_emptor" type="VARCHAR" length="2" jt="12" />
 			<column name="DAD_PAL" type="VARCHAR" length="75" jt="12" />
@@ -62,7 +63,7 @@
 		</table>
 		<table name="facts_price" prior="Entity_0" >
 			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
-			<column name="CSUIP" type="INT" jt="4" />
+			<column name="CSUIP" type="VARCHAR" length="9" jt="12" />
 			<column name="open_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="high_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="low_price" type="DECIMAL" length="2" decimal="2" jt="3" />
@@ -97,7 +98,7 @@
 			<fk name="fk_facts_price_dim_date_0" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="closingbest_askdate" pk="date_id" />
 			</fk>
-			<fk name="fk_facts_price_dim_sec" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_sec" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
+			<fk name="fk_facts_price_dim_sec" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_security" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="CSUIP" pk="CUSIP" />
 			</fk>
 			<fk name="fk_facts_price_dim_tier" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_tier" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
@@ -115,12 +116,12 @@
 		</table>
 	</schema>
 	<layout name="Default Layout" id="Layout-c00" show_relation="columns" >
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_date" color="C1D8EE" x="51" y="306" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_location" color="C1D8EE" x="629" y="510" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_sec" color="C1D8EE" x="357" y="51" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_status" color="C1D8EE" x="629" y="306" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_tier" color="C1D8EE" x="119" y="612" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_venue" color="C1D8EE" x="391" y="799" />
-		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="facts_price" color="C1D8EE" x="340" y="306" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_date" color="C1D8EE" x="51" y="323" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_location" color="C1D8EE" x="629" y="527" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_security" color="C1D8EE" x="357" y="51" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_status" color="C1D8EE" x="629" y="323" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_tier" color="C1D8EE" x="119" y="629" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="dim_venue" color="C1D8EE" x="391" y="816" />
+		<entity schema="OTC_Market_DW_LGL.INSTANCE" name="facts_price" color="C1D8EE" x="340" y="323" />
 	</layout>
 </project>
