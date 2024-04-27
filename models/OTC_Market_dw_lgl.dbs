@@ -64,6 +64,12 @@
 		<table name="facts_price" prior="Entity_0" >
 			<column name="fact_id" type="BIGINT" jt="-5" mandatory="y" />
 			<column name="CSUIP" type="VARCHAR" length="9" jt="12" />
+			<column name="tier_id" type="INT" jt="4" />
+			<column name="venue_id" type="INT" jt="4" />
+			<column name="status_id" type="INT" jt="4" />
+			<column name="location_id" type="INT" jt="4" />
+			<column name="closingbest_biddateID" prior="closingbest_biddate" type="DATE" jt="91" />
+			<column name="closingbest_askdateID" prior="closingbest_askdate" type="DATE" jt="91" />
 			<column name="open_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="high_price" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="low_price" type="DECIMAL" length="2" decimal="2" jt="3" />
@@ -76,27 +82,20 @@
 			<column name="spread" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="dollar_vol" type="DECIMAL" length="2" decimal="2" jt="3" />
 			<column name="share_vol" type="INT" jt="4" />
-			<column name="closingbest_biddate" type="DATE" jt="91" />
-			<column name="closingbest_askdate" type="DATE" jt="91" />
-			<column name="date_id" type="DATE" jt="91" />
-			<column name="tier_id" type="INT" jt="4" />
-			<column name="venue_id" type="INT" jt="4" />
-			<column name="status_id" type="INT" jt="4" />
-			<column name="location_id" type="INT" jt="4" />
 			<index name="pk_facts_price" unique="PRIMARY_KEY" >
 				<column name="fact_id" />
 			</index>
 			<index name="unq_closingbest_biddate" unique="UNIQUE_INDEX" >
-				<column name="closingbest_biddate" />
+				<column name="closingbest_biddateID" />
 			</index>
 			<index name="unq_closingbest_askdate" unique="UNIQUE_INDEX" >
-				<column name="closingbest_askdate" />
+				<column name="closingbest_askdateID" />
 			</index>
 			<fk name="fk_facts_price_dim_date" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="closingbest_biddate" pk="date_id" />
+				<fk_column name="closingbest_biddateID" pk="date_id" />
 			</fk>
 			<fk name="fk_facts_price_dim_date_0" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_date" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
-				<fk_column name="closingbest_askdate" pk="date_id" />
+				<fk_column name="closingbest_askdateID" pk="date_id" />
 			</fk>
 			<fk name="fk_facts_price_dim_sec" virtual="y" to_schema="OTC_Market_DW_LGL.INSTANCE" to_table="dim_security" type="NonIdentifying" mandatory="n" cardinality="OneMore" range_from="0" range_to="0" >
 				<fk_column name="CSUIP" pk="CUSIP" />

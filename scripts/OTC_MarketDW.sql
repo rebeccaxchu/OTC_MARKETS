@@ -61,6 +61,12 @@ CREATE  TABLE "otcmarket".entity (
 CREATE  TABLE "otcmarket".facts_price ( 
 	fact_id              bigint  NOT NULL  ,
 	csuip                varchar(9)    ,
+	tier_id              integer    ,
+	venue_id             integer    ,
+	status_id            integer    ,
+	location_id          integer    ,
+	closingbest_biddateid date    ,
+	closingbest_askdateid date    ,
 	open_price           numeric(2,2)    ,
 	high_price           numeric(2,2)    ,
 	low_price            numeric(2,2)    ,
@@ -73,16 +79,9 @@ CREATE  TABLE "otcmarket".facts_price (
 	spread               numeric(2,2)    ,
 	dollar_vol           numeric(2,2)    ,
 	share_vol            integer    ,
-	closingbest_biddate  date    ,
-	closingbest_askdate  date    ,
-	date_id              date    ,
-	tier_id              integer    ,
-	venue_id             integer    ,
-	status_id            integer    ,
-	location_id          integer    ,
 	CONSTRAINT pk_facts_price PRIMARY KEY ( fact_id )
  );
 
-CREATE UNIQUE INDEX unq_closingbest_biddate ON "otcmarket".facts_price ( closingbest_biddate );
+CREATE UNIQUE INDEX unq_closingbest_biddate ON "otcmarket".facts_price ( closingbest_biddateid );
 
-CREATE UNIQUE INDEX unq_closingbest_askdate ON "otcmarket".facts_price ( closingbest_askdate );
+CREATE UNIQUE INDEX unq_closingbest_askdate ON "otcmarket".facts_price ( closingbest_askdateid );
