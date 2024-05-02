@@ -1,9 +1,12 @@
 {{ config(materialized="table") }}
 
-with 
-    tier_cte as (
-        select tier_id 
-    from public."otcmarket.hhc390ihqgzwa4hy")
+WITH tier_cte AS 
+(
+    SELECT
+        tier_id
+    FROM public."otcmarket.hhc390ihqgzwa4hy"
+)
 
-select cast(tier_id as integer)
+SELECT CAST (tier_id as integer)
 from tier_cte
+WHERE tier_id IS NOT NULL

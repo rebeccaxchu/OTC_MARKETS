@@ -15,6 +15,6 @@ with
     from public."otcmarket.hhc390ihqgzwa4hy" AS o
 )
 
-select DISTINCT cusip
+select DISTINCT cusip, compID, symbol, company_name, sec_type, caveat_emptor, DAD_PAL
 from sec_cte
 WHERE cusip IS NOT NULL
