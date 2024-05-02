@@ -4,14 +4,15 @@ CREATE SCHEMA IF NOT EXISTS "otcmarket";
 
 CREATE  TABLE "otcmarket".dim_date ( 
 	date_id              bigint  NOT NULL  ,
-	"year"               integer    ,
-	quarter              integer    ,
+	yearnumber           integer    ,
+	quarternumber        integer    ,
 	monthnumber          integer    ,
 	monthname            varchar(25)    ,
 	weekofmonth          integer    ,
 	weekofyear           integer    ,
-	dayname              varchar(25)    ,
 	daynumber            integer    ,
+	dayofweek            integer    ,
+	dayname              varchar(25)    ,
 	dateisoformat        date    ,
 	CONSTRAINT pk_dim_date PRIMARY KEY ( date_id )
  );
@@ -23,13 +24,13 @@ CREATE  TABLE "otcmarket".dim_location (
 	CONSTRAINT pk_dim_location PRIMARY KEY ( location_id )
  );
 
-CREATE  TABLE "otcmarket".dim_sec ( 
+CREATE  TABLE "otcmarket".dim_security ( 
 	cusip                varchar(9)  NOT NULL  ,
 	compid               integer    ,
 	symbol               varchar(10)    ,
-	sec_type             integer    ,
+	company_name         varchar(50)    ,
+	sec_type             varchar(25)    ,
 	sec_name             varchar(50)    ,
-	sec_class            varchar(2)    ,
 	sector               varchar(25)    ,
 	caveat_emptor        varchar(2)    ,
 	dad_pal              varchar(75)    ,
@@ -59,7 +60,13 @@ CREATE  TABLE "otcmarket".entity (
 
 CREATE  TABLE "otcmarket".facts_price ( 
 	fact_id              bigint  NOT NULL  ,
-	csuip                integer    ,
+	csuip                varchar(9)    ,
+	tier_id              integer    ,
+	venue_id             integer    ,
+	status_id            integer    ,
+	location_id          integer    ,
+	closingbest_biddateid date    ,
+	closingbest_askdateid date    ,
 	open_price           numeric(2,2)    ,
 	high_price           numeric(2,2)    ,
 	low_price            numeric(2,2)    ,
@@ -72,16 +79,9 @@ CREATE  TABLE "otcmarket".facts_price (
 	spread               numeric(2,2)    ,
 	dollar_vol           numeric(2,2)    ,
 	share_vol            integer    ,
-	closingbest_biddate  date    ,
-	closingbest_askdate  date    ,
-	date_id              date    ,
-	tier_id              integer    ,
-	venue_id             integer    ,
-	status_id            integer    ,
-	location_id          integer    ,
 	CONSTRAINT pk_facts_price PRIMARY KEY ( fact_id )
  );
 
-CREATE UNIQUE INDEX unq_closingbest_biddate ON "otcmarket".facts_price ( closingbest_biddate );
+CREATE UNIQUE INDEX unq_closingbest_biddate ON "otcmarket".facts_price ( closingbest_biddateid );
 
-CREATE UNIQUE INDEX unq_closingbest_askdate ON "otcmarket".facts_price ( closingbest_askdate );
+CREATE UNIQUE INDEX unq_closingbest_askdate ON "otcmarket".facts_price ( closingbest_askdateid );
