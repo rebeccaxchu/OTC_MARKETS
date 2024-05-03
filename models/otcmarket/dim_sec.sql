@@ -1,20 +1,27 @@
 {{ config(materialized="table") }}
 
 with
-   sec_cte as (
-    SELECT DISTINCT CUSIP, 
-    o."CompID" AS compID,
-    o."Symbol" AS symbol,
-    o."Issue" AS company_name,
-    o."SecType" AS sec_type, 
-    -- missing security name from table "otc_securities"
-    -- missing sector
-    o."CaveatEmptor" AS caveat_emptor, 
-    o."DAD_PAL" AS DAD_PAL
-
-    from public."otcmarket.hhc390ihqgzwa4hy" AS o
+   sec_cte as 
+(
+    SELECT DISTINCT 
+            h.CUSIP, 
+            h.compid,
+            h.symbol,
+            h.company_name,
+            h.sec_type, 
+            s.sec_name,
+            s.sector,
+            h.caveat_emptor, 
+            h.DAD_PAL
+        from public."otcmarket.hhc390ihqgzwa4hy" AS h
+        JOIN public."otcmarket.otc_securities" AS s
+        ON h.symbol = s.symbol
 )
 
-select DISTINCT cusip, compID, symbol, company_name, sec_type, caveat_emptor, DAD_PAL
+select DISTINCT CUSIP, compid, symbol, company_name, sec_type ,sec_name, sector, caveat_emptor, DAD_PAL
 from sec_cte
-WHERE cusip IS NOT NULL
+WHERE CUSIP IS NOT NULL
+    AND company_name IS NOT NULL
+    AND sec_type IS NOT NULL
+    AND TRIM(sec_type) <> ''
+    AND sector IS NOT NULL

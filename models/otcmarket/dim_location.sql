@@ -1,27 +1,29 @@
 {{
    config (
-        materialized='table'
+       materialized='table'
    )
 }}
 
+WITH location_cte AS
+(
+   SELECT DISTINCT 
+            c.country,
+            c.state
+    FROM public."otcmarket.companyinfo" AS c
+    JOIN public."otcmarket.companyinfo" AS h
+    ON c.symbol = h.symbol
 
-WITH date_cte AS (
-   SELECT DISTINCT CAST(closingbest_biddate AS timestamp) as date_value FROM otcmarket.hhc390ihqgzwa4hy
-   UNION
-   SELECT DISTINCT CAST(closingbest_askdate AS timestamp) as date_value FROM otcmarket.hhc390ihqgzwa4hy
+    WHERE c.country IS NOT NULL
+      AND c.country !~ '^[0-9]+(\.[0-9]+)?$'
+      AND c.country !~ '^(\d{4}-\d{2}-\d{2}|\d{2}/\d{2}/\d{4})$'
+),
+location_with_id AS (
+    SELECT DISTINCT
+        country,
+        state,
+        ROW_NUMBER() OVER (ORDER BY country, state) AS location_id
+    FROM location_cte
 )
 
-
-SELECT
- {{ date_to_yymmdd (date_Value) }} AS date_id, 
- date_value AS date_iso_format,
- EXTRACT (YEAR FROM date_value) AS yearNumber,
- EXTRACT (QUARTER FROM date_value) AS quarterNumber,
- EXTRACT (MONTH FROM date_value) AS monthNumber,
- TO_CHAR(date_value, 'Month') AS monthName,
- FLOOR (EXTRACT (day FROM date_value) - 1) / 7) + 1 AS weekOfMonth,
- EXTRACT (week FROM date_value) AS weekOfYear,
- EXTRACT (DAY FROM date_value) AS dayNumber,
- EXTRACT (isodow FROM date_value) AS dayofWeek,
- TO_CHAR(date_value, 'Day') AS dayName
-FROM date_cte
+SELECT DISTINCT location_id, country, state
+FROM location_with_id
