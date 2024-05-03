@@ -24,10 +24,11 @@ with
         ad.closingbest_askdateID
 
         FROM public."otcmarket.hhc390ihqgzwa4hy" AS h
-        INNER JOIN dbt_otcmarket.dim_tier t ON t.tier_id = CAST(h.tier_id)
+        INNER JOIN dbt_otcmarket.dim_tier t ON t.tier_id = CAST(h.tier_id AS INTEGER)
 )
 
 SELECT DISTINCT CUSIP, open_price, high_price, low_price, previous_closeprice,
         shares_outstanding, BFCMmid, closingbest_bid, closingbest_ask, spread,
         dollar_vol, share_vol
+
 FROM facts_cte
