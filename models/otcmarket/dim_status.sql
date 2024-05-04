@@ -5,7 +5,7 @@
 }}
 
 WITH StatusMapping AS (
-    SELECT 
+    SELECT DISTINCT
         status_name,
         CASE 
             WHEN status_name = 'Active' THEN 101
@@ -16,13 +16,6 @@ WITH StatusMapping AS (
         END AS status_id
     FROM 
         public."otcmarket.hhc390ihqgzwa4hy"
-    WHERE 
-        status_name IS NOT NULL AND
-        status_name !~ '^[0-9]+(\.[0-9]+)?$' AND
-        status_name !~ '^(\d{4}-\d{2}-\d{2}|\d{2}/\d{2}/\d{4})$' AND
-        status_name IN ('Active', 'Halted', 'Revoked', 'Suspend')
-    GROUP BY 
-        status_name
 )
 
 SELECT 

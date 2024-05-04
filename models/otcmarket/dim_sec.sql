@@ -1,22 +1,18 @@
 {{ config(materialized="table") }}
 
 with
-   sec_cte as 
-(
-    SELECT  
-        c.*,
-        s.sec_name,
-        s.sector
-    from public."otcmarket.companyinfo" AS c
-    JOIN public."otcmarket.otc_securities" AS s
-    ON  c.symbol = s.symbol
-    WHERE c.symbol IS NOT NULL
-    AND s.symbol IS NOT NULL
-    AND c.company_name IS NOT NULL
-    AND c.sec_type IS NOT NULL
-    AND TRIM(c.sec_type) <> ''
-    AND s.sector IS NOT NULL
-)
+    sec_cte as (
+        select c.*, s.sec_name, s.sector
+        from public."otcmarket.companyinfo" as c
+        join public."otcmarket.otc_securities" as s on c.symbol = s.symbol
+        where
+            c.symbol is not null
+            and s.symbol is not null
+            and c.company_name is not null
+            and c.sec_type is not null
+            and trim(c.sec_type) <> ''
+            and s.sector is not null
+    )
 
 select *
 from sec_cte
