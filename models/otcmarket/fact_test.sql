@@ -25,7 +25,7 @@ SELECT DISTINCT
     (SELECT venue_id FROM {{ ref('dim_venue') }} WHERE venue_name = h.venue_name) AS venue_id,
     (SELECT status_id FROM {{ ref('dim_status') }} WHERE status_name = h.status_name) AS status_id,
     (SELECT location_id FROM {{ ref('dim_location') }} WHERE country = h.country AND state = h.state) AS location_id,
-    (SELECT date_id FROM {{ ref('dim_date') }} WHERE date_iso_format = h.ClosingBestBidDate) AS closingbest_biddateid,
-    (SELECT date_id FROM {{ ref('dim_date') }} WHERE date_iso_format = h.ClosingBestAskDate) AS closingbest_askdateid
+    (SELECT date_id FROM {{ ref('dim_date') }} WHERE date_id = h.ClosingBestBidDate) AS closingbest_biddateid,
+    (SELECT date_id FROM {{ ref('dim_date') }} WHERE date_id = h.ClosingBestAskDate) AS closingbest_askdateid
 FROM public."otcmarket.hhc390ihqgzwa4hy" AS h
 WHERE h.CUSIP IS NOT NULL
