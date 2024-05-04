@@ -1,0 +1,5 @@
+status_id,status_name
+101,Active
+102,Halted
+103,Revoked
+104,Suspend
