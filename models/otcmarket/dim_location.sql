@@ -4,9 +4,8 @@
    )
 }}
 
-WITH location_cte AS
-(
-   SELECT DISTINCT 
+WITH location_cte AS (
+    SELECT DISTINCT 
             c.country,
             c.state
     FROM public."otcmarket.companyinfo" AS c
@@ -21,7 +20,12 @@ location_with_id AS (
     SELECT DISTINCT
         country,
         state,
-        MD5(country || state) AS location_id 
+        CONCAT(
+            UPPER(SUBSTRING(country FROM 1 FOR 1)),
+            UPPER(SUBSTRING(state FROM 1 FOR 1)),
+            '-',
+            LPAD(CAST(ROW_NUMBER() OVER (ORDER BY country, state) AS TEXT), 4, '0')
+        ) AS location_id
     FROM location_cte
 )
 
