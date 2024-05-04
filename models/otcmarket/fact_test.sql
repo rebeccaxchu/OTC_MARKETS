@@ -13,7 +13,7 @@ SELECT DISTINCT
     h.closingbest_ask,
     h.spread,
     h.dollar_vol,
-    h.share_vol,
+    -- h.share_vol,
     t.tier_id,
     v.venue_id,
     s.status_id,
