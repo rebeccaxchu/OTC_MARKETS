@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 WITH location_cte AS (
     SELECT DISTINCT 
         country,
@@ -23,8 +25,8 @@ sec_cte AS (
         c.state,
         s.sec_name,
         s.sector
-    FROM public."otcmarket.companyinfo" as c
-    JOIN public."otcmarket.otc_securities" as s ON c.symbol = s.symbol
+    FROM public."otcmarket.companyinfo" AS c
+    JOIN public."otcmarket.otc_securities" AS s ON c.symbol = s.symbol
     WHERE
         c.symbol IS NOT NULL
         AND s.symbol IS NOT NULL
@@ -43,7 +45,7 @@ sec_with_location AS (
         sec.sector,
         loc.location_id
     FROM sec_cte AS sec
-    JOIN location_cte AS loc ON sec.country = loc.country AND sec.state = loc.state
+    JOIN {{ ref('dim_location') }} loc ON sec.country = loc.country AND sec.state = loc.state
 )
 
 SELECT *
