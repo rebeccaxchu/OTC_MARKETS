@@ -1,0 +1,156 @@
+location_id,country,state
+A-0001,Argentina,
+A-0007,Australia,
+A-0008,Austria,
+AN-0002,Australia,New South Wales
+AQ-0003,Australia,Queensland
+AS-0004,Australia,South Australia
+AV-0005,Australia,Victoria
+AW-0006,Australia,Western Australia
+B-0009,Bahamas,
+B-0010,Barbados,
+B-0011,Belarus,
+B-0012,Belgium,
+B-0013,Bermuda,
+B-0014,Brazil,
+B-0015,British Virgin Islands,
+B-0016,Bulgaria,
+C-0027,Canada,
+C-0028,Cayman Islands,
+C-0029,Chile,
+C-0031,China,
+C-0032,Colombia,
+C-0033,Curacao,
+C-0034,Cyprus,
+C-0035,Czech Republic,
+CA-0017,Canada,Alberta
+CB-0018,Canada,British Columbia
+CH-0030,China,Hong Kong
+CM-0019,Canada,Manitoba
+CN-0020,Canada,New Brunswick
+CN-0021,Canada,Newfoundland
+CN-0022,Canada,Nova Scotia
+CO-0023,Canada,Ontario
+CQ-0024,Canada,Quebec
+CS-0025,Canada,Saskatchewan
+CY-0026,Canada,Yukon
+D-0036,Denmark,
+D-0037,Dominican Republic,
+E-0038,Egypt,
+F-0039,Faeroe Islands,
+F-0040,Finland,
+F-0041,France,
+G-0042,Georgia,
+G-0043,Germany,
+G-0044,Gibraltar,
+G-0045,Greece,
+G-0046,Guernsey,
+H-0047,Hong Kong,
+H-0048,Hungary,
+I-0049,India,
+I-0050,Indonesia,
+I-0051,Ireland,
+I-0052,Isle of Man,
+I-0053,Israel,
+I-0054,Italy,
+J-0055,Japan,
+J-0056,Jersey,
+K-0057,Kazakhstan,
+L-0058,Liechtenstein,
+L-0059,Luxembourg,
+M-0060,Macau,
+M-0061,"Macedonia, the former Yugoslav Republic of",
+M-0062,Malaysia,
+M-0063,Malta,
+M-0064,Mauritius,
+M-0065,Mexico,
+M-0066,Mongolia,
+M-0067,Morocco,
+N-0068,Namibia,
+N-0069,New Zealand,
+N-0070,Norway,
+O-0071,Oman,
+P-0072,Pakistan,
+P-0073,Panama,
+P-0074,Papua New Guinea,
+P-0075,Peru,
+P-0076,Philippines,
+P-0077,Poland,
+P-0078,Portugal,
+P-0079,Puerto Rico,
+Q-0080,Qatar,
+R-0081,Russia,
+S-0082,Serbia,
+S-0083,Singapore,
+S-0084,South Africa,
+S-0085,South Korea,
+S-0086,Spain,
+S-0087,Sri Lanka,
+S-0088,Sweden,
+S-0089,Switzerland,
+T-0090,Taiwan,
+T-0091,Thailand,
+T-0092,The Netherlands,
+T-0093,Turkey,
+U-0094,United Arab Emirates,
+U-0099,United Kingdom,
+U-0100,United Republic of Tanzania,
+U-0101,Uruguay,
+U-0154,USA,
+UA-0102,USA,Alabama
+UA-0103,USA,Alaska
+UA-0104,USA,Arizona
+UA-0105,USA,Arkansas
+UC-0106,USA,California
+UC-0107,USA,Colorado
+UC-0108,USA,Connecticut
+UD-0109,USA,Delaware
+UE-0095,United Kingdom,England
+UE-0096,United Kingdom,England and Wales
+UF-0110,USA,Florida
+UG-0111,USA,Georgia
+UH-0112,USA,Hawaii
+UI-0113,USA,Idaho
+UI-0114,USA,Illinois
+UI-0115,USA,Indiana
+UI-0116,USA,Iowa
+UK-0117,USA,Kansas
+UK-0118,USA,Kentucky
+UL-0119,USA,Louisiana
+UM-0120,USA,Maine
+UM-0121,USA,Maryland
+UM-0122,USA,Massachusetts
+UM-0123,USA,Michigan
+UM-0124,USA,Minnesota
+UM-0125,USA,Mississippi
+UM-0126,USA,Missouri
+UM-0127,USA,Montana
+UN-0128,USA,Nebraska
+UN-0129,USA,Nevada
+UN-0130,USA,New Hampshire
+UN-0131,USA,New Jersey
+UN-0132,USA,New Mexico
+UN-0133,USA,New York
+UN-0134,USA,North Carolina
+UN-0135,USA,North Dakota
+UO-0136,USA,Ohio
+UO-0137,USA,Oklahoma
+UO-0138,USA,Oregon
+UP-0139,USA,Pennsylvania
+UP-0140,USA,Puerto Rico
+UR-0141,USA,Rhode Island
+US-0097,United Kingdom,Scotland
+US-0142,USA,South Carolina
+US-0143,USA,South Dakota
+UT-0144,USA,Tennessee
+UT-0145,USA,Texas
+UU-0146,USA,Utah
+UV-0147,USA,Vermont
+UV-0148,USA,Virginia
+UW-0098,United Kingdom,Wales
+UW-0149,USA,Washington
+UW-0150,USA,Washington DC
+UW-0151,USA,West Virginia
+UW-0152,USA,Wisconsin
+UW-0153,USA,Wyoming
+V-0155,Vietnam,
