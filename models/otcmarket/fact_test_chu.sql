@@ -21,12 +21,16 @@ WITH facts_cte AS (
         h.BFCMmid,
         COALESCE(h.shares_outstanding::bigint, NULL) AS shares_outstanding,
         d.date_id,
-        st.status_id  -- Added the missing comma before this line
+        st.status_id,
+        v.venue_id,
+        t.tier_id
     FROM 
         public."otcmarket.hhc390ihqgzwa4hy" as h
     JOIN {{ ref('dim_sec') }} as s ON s.symbol = h.symbol
     JOIN {{ ref('dim_date') }} as d ON h."ClosingBestBidDate"::date = d.date_iso_format::date
     JOIN {{ ref('dim_status') }} AS st ON h."status_name" = st.status_name
+    JOIN {{ ref('dim_venue') }} AS v ON h."venue_name" = v.venue_name
+    JOIN {{ ref('dim_tier') }} AS t ON h."tier_name" = t.tier_name
 )
 SELECT *
 FROM facts_cte
