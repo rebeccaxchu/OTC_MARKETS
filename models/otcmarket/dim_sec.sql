@@ -3,25 +3,20 @@
 with
    sec_cte as 
 (
-    SELECT DISTINCT 
-            h.CUSIP, 
-            h.compid,
-            h.symbol,
-            h.company_name,
-            h.sec_type, 
-            s.sec_name,
-            s.sector,
-            h.caveat_emptor, 
-            h.DAD_PAL
-        from public."otcmarket.hhc390ihqgzwa4hy" AS h
-        JOIN public."otcmarket.otc_securities" AS s
-        ON h.symbol = s.symbol
+    SELECT  
+        c.*,
+        s.sec_name,
+        s.sector
+    from public."otcmarket.companyinfo" AS c
+    JOIN public."otcmarket.otc_securities" AS s
+    ON  c.symbol = s.symbol
+    WHERE c.symbol IS NOT NULL
+    AND s.symbol IS NOT NULL
+    AND c.company_name IS NOT NULL
+    AND c.sec_type IS NOT NULL
+    AND TRIM(c.sec_type) <> ''
+    AND s.sector IS NOT NULL
 )
 
-select DISTINCT CUSIP, compid, symbol, company_name, sec_type ,sec_name, sector, caveat_emptor, DAD_PAL
+select *
 from sec_cte
-WHERE CUSIP IS NOT NULL
-    AND company_name IS NOT NULL
-    AND sec_type IS NOT NULL
-    AND TRIM(sec_type) <> ''
-    AND sector IS NOT NULL
