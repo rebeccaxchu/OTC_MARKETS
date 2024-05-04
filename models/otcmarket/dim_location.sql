@@ -21,7 +21,7 @@ location_with_id AS (
     SELECT DISTINCT
         country,
         state,
-        ROW_NUMBER() OVER (ORDER BY country, state) AS location_id
+        MD5(country || state) AS location_id 
     FROM location_cte
 )
 
