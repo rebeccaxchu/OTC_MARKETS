@@ -2,19 +2,21 @@
 
 WITH tier_cte AS 
 (
-    SELECT DISTINCT
+    SELECT
         tier_id,
         tier_name
     FROM public."otcmarket.hhc390ihqgzwa4hy"
+    WHERE tier_id IS NOT NULL AND
+          tier_id ~ '^\d+$' AND -- Ensures tier_id contains only digits
+          tier_id::integer >= 1 AND
+          tier_id::integer < 41 AND
+          tier_name IS NOT NULL AND 
+          tier_name !~ '^\d+$'
 )
 
-SELECT DISTINCT CAST (tier_id as integer), tier_name
+SELECT   CAST (tier_id as integer) AS tier_id, tier_name
 from tier_cte
-WHERE tier_id IS NOT NULL AND
-    tier_id ~ '^\d+$' AND
-    tier_id::integer >= 1 AND
-    tier_id::integer < 41 AND
-    tier_name IS NOT NULL AND tier_name !~ '^\d+$' AND
+WHERE 
     (
         (tier_id::integer = 1 AND tier_name = 'OTCQX U.S. Premier') OR
         (tier_id::integer = 2 AND tier_name = 'OTCQX U.S.') OR
@@ -27,3 +29,4 @@ WHERE tier_id IS NOT NULL AND
         (tier_id::integer = 30 AND tier_name = 'Grey Market') OR
         (tier_id::integer = 40 AND tier_name = 'Expert Market')
     )
+GROUP BY tier_id, tier_name
