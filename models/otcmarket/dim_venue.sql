@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="view") }}
 
 WITH venue_cte AS (
     SELECT DISTINCT

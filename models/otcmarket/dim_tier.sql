@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="view") }}
 
 WITH tier_cte AS 
 (
