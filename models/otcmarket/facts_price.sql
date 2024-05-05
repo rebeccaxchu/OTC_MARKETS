@@ -32,3 +32,6 @@ SELECT DISTINCT CUSIP, open_price, high_price, low_price, previous_closeprice,
         dollar_vol, share_vol
 
 FROM facts_cte
+
+
+

@@ -5,23 +5,15 @@
 }}
 
 WITH date_cte AS (
-    SELECT DISTINCT 
+    SELECT 
+        date_field,
         CASE
-            WHEN "ClosingBestBidDate" ~ '^\d{4}-\d{2}-\d{2}$' THEN CAST("ClosingBestBidDate" AS DATE)
+            WHEN date_field ~ '^\d{4}-\d{2}-\d{2}$' THEN CAST(date_field AS DATE)
             ELSE NULL
         END AS date_value
-    FROM public."otcmarket.hhc390ihqgzwa4hy"
-    WHERE "ClosingBestBidDate" IS NOT NULL
-
-    UNION
-
-    SELECT DISTINCT
-        CASE
-            WHEN "ClosingBestAskDate" ~ '^\d{4}-\d{2}-\d{2}$' THEN CAST("ClosingBestAskDate" AS DATE)
-            ELSE NULL
-        END AS date_value
-    FROM public."otcmarket.hhc390ihqgzwa4hy"
-    WHERE "ClosingBestAskDate" IS NOT NULL
+    FROM public."otcmarket.hhc390ihqgzwa4hy",
+    LATERAL (VALUES ("ClosingBestBidDate"), ("ClosingBestAskDate")) AS dates(date_field)
+    WHERE date_field IS NOT NULL
 )
 
 SELECT
