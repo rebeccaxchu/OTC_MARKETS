@@ -6,20 +6,19 @@
 
 WITH StatusMapping AS (
     SELECT DISTINCT
-        status_name,
+        securitystatus,
         CASE 
-            WHEN status_name = 'Active' THEN 101
-            WHEN status_name = 'Halted' THEN 102
-            WHEN status_name = 'Revoked' THEN 103
-            WHEN status_name = 'Suspend' THEN 104
+            WHEN securitystatus = 'Active' THEN 101
+            WHEN securitystatus = 'Halted' THEN 102
+            WHEN securitystatus = 'Revoked' THEN 103
+            WHEN securitystatus = 'Suspend' THEN 104
             ELSE 999 -- For any unexpected values
         END AS status_id
-    FROM 
-        public."otcmarket.hhc390ihqgzwa4hy"
+    FROM dbt_otcmarket."bjq0xakxhrwyjvu9"
 )
 
 SELECT 
     status_id, 
-    status_name
+    securitystatus
 FROM 
     StatusMapping
