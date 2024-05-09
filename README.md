@@ -1,7 +1,7 @@
-Chantal Villacres
-Xiashu Chu
-Weisui Xu
-Jun Lee
+Chantal Villacres\
+Xiashu Chu\
+Weisui Xu\
+Jun Lee\
 Liam Hasandjekaj
 
 # Baruch Capital’s OTC Pricing Pipeline
