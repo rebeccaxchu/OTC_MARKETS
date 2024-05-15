@@ -1,25 +1,17 @@
-{{
-   config (
-       materialized='table'
-   )
-}}
+{{ config(materialized="table") }}
 
-WITH StatusMapping AS (
+WITH status_cte AS (
     SELECT DISTINCT
-        status_name,
-        CASE 
-            WHEN status_name = 'Active' THEN 101
-            WHEN status_name = 'Halted' THEN 102
-            WHEN status_name = 'Revoked' THEN 103
-            WHEN status_name = 'Suspend' THEN 104
-            ELSE 999 -- For any unexpected values
-        END AS status_id
-    FROM 
-        public."otcmarket.hhc390ihqgzwa4hy"
-)
+        securitystatus as status_name
+    FROM dbt_otcmarket."bjq0xakxhrwyjvu9"
+    WHERE securitystatus IS NOT NULL
 
-SELECT 
-    status_id, 
-    status_name
-FROM 
-    StatusMapping
+),
+status_with_id AS (
+    SELECT 
+        status_name,
+        ROW_NUMBER() OVER (ORDER BY status_name) AS status_id
+    FROM status_cte
+)
+SELECT status_id, status_name
+FROM status_with_id
