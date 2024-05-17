@@ -33,10 +33,16 @@ IT:  The information technology team will provide technical support for connecti
 ## Data Source
  
 The external data source for the OTC pricing pipeline project will be otcmarkets.com. The pipeline will extract data from this website, load that raw data into a cloud storage system and database, transform the data based on the requirements and data constraints of the company, and then serve it to traders and analysts through a business intelligence software platform. The first dataset we used for this project was 16gb. The dataset provided all the necessary fields however it did not have a readily available unique identifier for each record. Additionally many of the data types and formats needed to be altered significantly so as to fit with the requirements. Additionally, the dataset being very large proved to be problematic in loading all at once and required batch loading. We also had to thoroughly clean the dataset, removing null values, null columns, and duplicate records.
- 
+
 ## Methods,  Data Tools, & Interfaces
 	
 After getting familiar with the external data source and the relevant columns of the dataset being used, ACE Consultants began building an information architecture. The team utilized Dbschema, a database schema design tool,  in order to develop a dimensional model and set up the necessary tables, attributes, and relationships for the OTC pricing dataset. A snowflake schema was used for this project. It is defined by the date, security, status, tier, venue and location dimensions with a facts dimensional table in the center connecting them all. In order for the team to work together and handle push/pull version control, communication, and task assignments, ACE Consultants utilized GitHub repositories for team collaboration. The team primarily coded in Visual Studio Code in conjunction with Google Collab for testing the relevant data pipeline scripts. The data was stored in Azure Blob, Microsoft’s scalable cloud storage platform due to its ease of use and scalability. For the pipeline methodology we utilized an extract, load, transform method (ELT). Given the large size of the dataset, the team chose ELT for its superior scalability, faster data loading, and flexibility with respect to transforming the data directly within the data warehouse. Dbt in conjunction with DataGrip was utilized to transform the dimensional tables and data within the data warehouse. PostgreSQL was used as the database management system. Finally, Tableau was used as the end user interface that analysts and traders would use to easily access the data visualizations and business intelligence dashboards.
+
+## Known Issues
+• Extract Code - .ipynb not present as the raw data file was too large and needed to be manually imported into the Azure blob
+• Loading Code (elt_OTC.ipynb) - Issue loading data line by line leading to corrupted data. New code written, but not tested
+• Machine Learning - Not present due to time constraints
+• Visualization Analysis - Analysis by years not present due to time constraints on uploading data, scope narrowed to only year 2023 
 
 Database Management: DbSchema, DataGrip, PostgreSQL\
 Programming: Python, SQL\
